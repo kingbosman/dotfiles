@@ -116,6 +116,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
+#System
+alias shd='shutdown -h now'
+
+#Editors and other dev stuff
+PATH="$PATH:$HOME/.config/composer/vendor/bin" #load composer
 phpstorm () {
     if [ -f /home/robin/.var/app/com.jetbrains.PhpStorm/config/JetBrains/PhpStorm2024.2/.lock ]; then
         rm -r /home/robin/.var/app/com.jetbrains.PhpStorm/config/JetBrains/PhpStorm2024.2/.lock
@@ -123,16 +128,7 @@ phpstorm () {
     fi
     flatpak run com.jetbrains.PhpStorm "$1" > /dev/null 2>&1 &
 }
-
-#Editor aliases and functions
-# PHPSTORM FIX
 alias code='flatpak run com.visualstudio.code "$1"'
-alias sailstart='sudo ./vendor/bin/sail start'
-alias sailstop='sudo ./vendor/bin/sail stop'
-alias sailup='sudo ./vendor/bin/sail up'
-alias saildown='sudo ./vendor/bin/sail down'
-alias saila='sudo ./vendor/bin/sail artisan'
-alias shd='shutdown -h now'
+alias sail='sudo ./vendor/bin/sail'
+alias sa='sudo ./vendor/bin/sail artisan'
 
-# Composer
-PATH="$PATH:$HOME/.config/composer/vendor/bin"
