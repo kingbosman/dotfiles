@@ -131,3 +131,8 @@ alias sailstart='sudo ./vendor/bin/sail start'
 alias sailstop='sudo ./vendor/bin/sail stop'
 alias sailup='sudo ./vendor/bin/sail up'
 alias saildown='sudo ./vendor/bin/sail down'
+alias saila='sudo ./vendor/bin/sail artisan'
+alias shd='shutdown -h now'
+
+# Composer
+PATH="$PATH:$HOME/.config/composer/vendor/bin"
