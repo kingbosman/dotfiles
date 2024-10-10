@@ -24,6 +24,7 @@ alias gc="git commit -m"
 alias gp="git push"
 alias ga="git add ."
 alias gs="git status"
+alias gb="git branch"
 
 PATH="$PATH:$HOME/.config/composer/vendor/bin" #load composer
 
@@ -49,7 +50,7 @@ phpstorm () {
 alias v="vim"
 alias sail='sudo ./vendor/bin/sail'
 alias sa='sudo ./vendor/bin/sail artisan'
-
+alias a='php artisan'
 
 # Add Color
 alias egrep='grep --color=auto' 
