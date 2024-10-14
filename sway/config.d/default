@@ -24,6 +24,12 @@ for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="nwg-look"] floating enable
 for_window [app_id="qimgv"] floating enable, resize set 1280 720
 
+# workspace switch monitor
+bindsym $mod+Control+Shift+Right move workspace to output right
+bindsym $mod+Control+Shift+Left move workspace to output left
+bindsym $mod+Control+Shift+Down move workspace to output down
+bindsym $mod+Control+Shift+Up move workspace to output up
+
 # windows
 bindsym $mod+q kill
 bindsym $mod+Shift+r reload; exec notify-send 'sway' 'Restarted'
