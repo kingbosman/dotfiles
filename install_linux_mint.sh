@@ -26,8 +26,8 @@ ln -s $DOTFILES/.generated-install/tmux $HOME/.config/tmux
 echo 'linking bash files'
 cp -r $DOTFILES/bash $DOTFILES/.generated-install/bash 
 rm -rf $HOME/.config/bash
-rm -rf $HOME/.config/.bashrc
+rm -rf $HOME/.bashrc
 ln -s $DOTFILES/.generated-install/bash $HOME/.config/bash
-ln -s $DOTFILES/.generated-install/bash $HOME/.config/.bashrc
+ln -s $DOTFILES/.generated-install/bash/.bashrc $HOME/.bashrc
 
 echo 'Done linking all files!'
