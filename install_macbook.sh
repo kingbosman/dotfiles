@@ -17,7 +17,7 @@ ln -s "$DOTFILES/.generated-install/nvim" "$HOME/.config/nvim"
 echo 'linking kitty'
 cp -r "$DOTFILES/kitty" "$DOTFILES/.generated-install/kitty"
 # Overwrite config for macbook settings
-cp -fr "$DOTFILES/kitty/kitty_macbook.conf" "$DOTFILES/.generated-install/kitty/kitty_macbook.conf"
+cp -fr "$DOTFILES/kitty/kitty_macbook.conf" "$DOTFILES/.generated-install/kitty/kitty.conf"
 rm -rf "$HOME/.config/kitty"
 ln -s "$DOTFILES/.generated-install/kitty" "$HOME/.config/kitty"
 
