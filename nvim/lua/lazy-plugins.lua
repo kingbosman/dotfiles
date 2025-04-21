@@ -15,7 +15,8 @@ require("lazy").setup({
 
 	require("kickstart/plugins/blink-cmp"),
 
-	require("kickstart/plugins/tokyonight"),
+	-- require("kickstart/plugins/tokyonight"),
+	require("custom/plugins/catppuccin"),
 
 	require("kickstart/plugins/todo-comments"),
 
@@ -29,7 +30,7 @@ require("lazy").setup({
 	require("kickstart.plugins.autopairs"),
 	require("kickstart.plugins.neo-tree"),
 
-	{ import = "custom.plugins" },
+	-- { import = "custom.plugins" },
 }, {
 	ui = {
 		-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
