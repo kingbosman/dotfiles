@@ -30,6 +30,9 @@ require("lazy").setup({
 	require("kickstart.plugins.autopairs"),
 	require("kickstart.plugins.neo-tree"),
 
+	-- Terminal in nvim
+	require("custom.plugins.floaterm"),
+
 	-- { import = "custom.plugins" },
 }, {
 	ui = {
