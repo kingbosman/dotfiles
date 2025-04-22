@@ -1,5 +1,6 @@
 -- LSP Plugins
 return {
+	"b0o/schemastore.nvim",
 	{
 		-- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
 		-- used for completion, annotations and signatures of Neovim apis
@@ -249,6 +250,13 @@ return {
 				volar = {
 					filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 				},
+				jsonls = {
+					settings = {
+						json = {
+							schemas = require("schemastore").json.schemas(),
+						},
+					},
+				},
 			}
 
 			-- Ensure the servers and tools above are installed
@@ -267,10 +275,11 @@ return {
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
-				"tailwindcss",
-				"volar",
-				"php-cs-fixer",
-				"intelephense",
+				"tailwindcss", --tailwind css
+				"volar", -- vue, js, ts
+				"php-cs-fixer", -- php formatter
+				"intelephense", --php
+				"jsonls", -- JSON
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
