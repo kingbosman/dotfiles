@@ -246,7 +246,6 @@ return {
 						},
 					},
 				},
-				-- idk even know if the thing below works, havent tested it yet :TODO:
 				volar = {
 					filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 				},
