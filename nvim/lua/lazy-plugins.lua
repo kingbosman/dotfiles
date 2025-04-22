@@ -33,6 +33,9 @@ require("lazy").setup({
 	-- Terminal in nvim
 	require("custom.plugins.floaterm"),
 
+	--dashboard
+	require("custom.plugins.dashboard"),
+
 	-- { import = "custom.plugins" },
 }, {
 	ui = {
