@@ -280,6 +280,7 @@ return {
 				"php-cs-fixer", -- php formatter
 				"intelephense", --php
 				"jsonls", -- JSON
+				"gopls", -- GO
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
