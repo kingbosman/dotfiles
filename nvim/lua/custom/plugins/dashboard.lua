@@ -37,28 +37,28 @@ return {
 				},
 				center = {
 					{
-						icon = "  ",
+						icon = "🗒  ",
 						key = ":enew",
 						desc = "New file                 ",
 						action = "enew",
 					},
 					{
-						icon = "  ",
+						icon = "🗁  ",
 						key = "space s f",
 						desc = "Find file                 ",
 					},
 					{
-						icon = "  ",
+						icon = "↪  ",
 						key = "space s .",
 						desc = "Recent files              ",
 					},
 					{
-						icon = "  ",
+						icon = "⌨  ",
 						key = "space s g",
 						desc = "Find Word                 ",
 					},
 					{
-						icon = "  ",
+						icon = "🗂  ",
 						key = "space s n",
 						desc = "Find Dotfiles                 ",
 					},
