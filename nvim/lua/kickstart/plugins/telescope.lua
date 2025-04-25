@@ -113,8 +113,7 @@ return {
 
 			vim.keymap.set("n", "<leader>sf", function()
 				builtin.find_files({
-					find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
-					noremap = true,
+					hidden = true,
 				})
 			end, { desc = "[S]earch all files" })
 		end,
