@@ -112,4 +112,6 @@ if ! shopt -oq posix; then
 fi
 
 PATH="$PATH:$HOME/.config/composer/vendor/bin" #load composer
+export PATH=$PATH:/usr/bin/go/bin
+export PATH=$PATH:/$HOME/go/bin
 
