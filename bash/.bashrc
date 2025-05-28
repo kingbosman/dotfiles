@@ -115,3 +115,6 @@ PATH="$PATH:$HOME/.config/composer/vendor/bin" #load composer
 export PATH=$PATH:/usr/bin/go/bin
 export PATH=$PATH:/$HOME/go/bin
 
+# add ssh key
+eval $(keychain --quiet --eval ~/.ssh/id_ed25519)
+
