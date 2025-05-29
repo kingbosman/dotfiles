@@ -281,6 +281,7 @@ return {
 				"intelephense", --php
 				"jsonls", -- JSON
 				"gopls", -- GO
+				"pyright", -- Python
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
