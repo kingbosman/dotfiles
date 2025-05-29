@@ -280,7 +280,10 @@ return {
 				"php-cs-fixer", -- php formatter
 				"intelephense", --php
 				"jsonls", -- JSON
-				"gopls", -- GO
+				"gopls", -- GO lsp
+				"goimports", -- manage GO imports
+				"golangci-lint", -- GO lint
+				"staticcheck", -- GO checker
 				"pyright", -- Python
 				"black", --Python formatter
 				"flake8", -- Python linter

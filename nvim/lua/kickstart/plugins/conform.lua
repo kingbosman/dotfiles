@@ -33,6 +33,7 @@ return {
 				lua = { "stylua" },
 				php = { "php_cs_fixer" },
 				python = { "black" },
+				go = { "goimports" },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
