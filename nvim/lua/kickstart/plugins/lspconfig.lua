@@ -282,6 +282,9 @@ return {
 				"jsonls", -- JSON
 				"gopls", -- GO
 				"pyright", -- Python
+				"black", --Python formatter
+				"flake8", -- Python linter
+				"mypy", -- Python type checker
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
