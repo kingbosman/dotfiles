@@ -129,6 +129,9 @@ return {
 
 			vim.keymap.set("n", "<leader>sf", function()
 				builtin.find_files({
+					no_ignore = true,
+					no_ignore_parent = true,
+					file_ignore_patterns = { "%.git/" },
 					hidden = true,
 				})
 			end, { desc = "[S]earch all files" })
