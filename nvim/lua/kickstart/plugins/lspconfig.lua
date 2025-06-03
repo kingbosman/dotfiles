@@ -96,32 +96,65 @@ return {
 					map("grv", function()
 						local actions = require("telescope.actions")
 						local action_state = require("telescope.actions.state")
+						local telescope = require("telescope.builtin")
 
-						require("telescope.builtin").lsp_definitions({
-							attach_mappings = function(prompt_bufnr, map)
-								actions.select_default:replace(function()
-									local selection = action_state.get_selected_entry()
-									actions.close(prompt_bufnr)
-									if selection then
-										-- Create vertical split and get the new window id
-										vim.cmd("vsplit")
-										local new_win = vim.api.nvim_get_current_win()
+						local params = vim.lsp.util.make_position_params()
+						vim.lsp.buf_request(0, "textDocument/definition", params, function(err, result, ctx, _)
+							if err then
+								vim.notify("LSP error: " .. err.message, vim.log.levels.ERROR)
+								return
+							end
+							if not result or vim.tbl_isempty(result) then
+								vim.notify("No definition found", vim.log.levels.INFO)
+								return
+							end
 
-										-- If the definition is in a different file, open it in this split
-										if
-											selection.filename
-											and selection.filename ~= vim.api.nvim_buf_get_name(0)
-										then
-											vim.cmd("edit " .. vim.fn.fnameescape(selection.filename))
-										end
+							-- If there's only one result, do vsplit + jump manually
+							if #result == 1 then
+								local def = result[1]
+								local uri = def.uri or def.targetUri
+								local range = def.range or def.targetSelectionRange or def.targetRange
+								local filename = vim.uri_to_fname(uri)
+								local lnum = range.start.line + 1
+								local col = range.start.character + 1
 
-										-- Set cursor position in the new window's buffer
-										vim.api.nvim_win_set_cursor(new_win, { selection.lnum, selection.col - 1 })
-									end
-								end)
-								return true
-							end,
-						})
+								vim.cmd("vsplit")
+								local new_win = vim.api.nvim_get_current_win()
+
+								if filename ~= vim.api.nvim_buf_get_name(0) then
+									vim.cmd("edit " .. vim.fn.fnameescape(filename))
+								else
+									vim.api.nvim_win_set_buf(new_win, vim.api.nvim_get_current_buf())
+								end
+
+								vim.api.nvim_win_set_cursor(new_win, { lnum, col - 1 })
+							else
+								-- Multiple results: call telescope normally with your mappings
+								telescope.lsp_definitions({
+									attach_mappings = function(prompt_bufnr, map)
+										actions.select_default:replace(function()
+											local selection = action_state.get_selected_entry()
+											actions.close(prompt_bufnr)
+											if selection then
+												vim.cmd("vsplit")
+												local new_win = vim.api.nvim_get_current_win()
+												if
+													selection.filename
+													and selection.filename ~= vim.api.nvim_buf_get_name(0)
+												then
+													vim.cmd("edit " .. vim.fn.fnameescape(selection.filename))
+												end
+												vim.api.nvim_win_set_cursor(
+													new_win,
+													{ selection.lnum, selection.col - 1 }
+												)
+											end
+										end)
+										return true
+									end,
+								})
+							end
+						end)
 					end, "[G]oto [v]split definition")
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
