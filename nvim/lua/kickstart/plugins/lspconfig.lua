@@ -73,6 +73,9 @@ return {
 						vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
 
+					local actions = require("telescope.actions")
+					local action_state = require("telescope.actions.state")
+
 					-- Rename the variable under your cursor.
 					--  Most Language Servers support renaming across files, etc.
 					map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -93,6 +96,29 @@ return {
 					--  To jump back, press <C-t>.
 					map("grd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 
+					map("grv", function()
+						require("telescope.builtin").lsp_definitions({
+							attach_mappings = function(_, map)
+								map("i", "<CR>", function(prompt_bufnr)
+									local selection = action_state.get_selected_entry()
+									actions.close(prompt_bufnr)
+									if selection.filename then
+										vim.cmd("vsplit " .. vim.fn.fnameescape(selection.filename))
+										vim.api.nvim_win_set_cursor(0, { selection.lnum, selection.col - 1 })
+									end
+								end)
+								map("n", "<CR>", function(prompt_bufnr)
+									local selection = action_state.get_selected_entry()
+									actions.close(prompt_bufnr)
+									if selection.filename then
+										vim.cmd("vsplit " .. vim.fn.fnameescape(selection.filename))
+										vim.api.nvim_win_set_cursor(0, { selection.lnum, selection.col - 1 })
+									end
+								end)
+								return true
+							end,
+						})
+					end, "[G]oto [D]efinition")
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header.
 					map("grD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
