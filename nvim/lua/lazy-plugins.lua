@@ -16,7 +16,8 @@ require("lazy").setup({
 	require("kickstart/plugins/blink-cmp"),
 
 	-- require("kickstart/plugins/tokyonight"),
-	require("custom/plugins/catppuccin"),
+	-- require("custom/plugins/catppuccin"),
+	require("custom/plugins/everforest"),
 
 	require("kickstart/plugins/todo-comments"),
 
