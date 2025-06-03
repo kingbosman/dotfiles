@@ -73,9 +73,6 @@ return {
 						vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 					end
 
-					local actions = require("telescope.actions")
-					local action_state = require("telescope.actions.state")
-
 					-- Rename the variable under your cursor.
 					--  Most Language Servers support renaming across files, etc.
 					map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -97,28 +94,35 @@ return {
 					map("grd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 
 					map("grv", function()
+						local actions = require("telescope.actions")
+						local action_state = require("telescope.actions.state")
+
 						require("telescope.builtin").lsp_definitions({
-							attach_mappings = function(_, map)
-								map("i", "<CR>", function(prompt_bufnr)
+							attach_mappings = function(prompt_bufnr, map)
+								actions.select_default:replace(function()
 									local selection = action_state.get_selected_entry()
 									actions.close(prompt_bufnr)
-									if selection.filename then
-										vim.cmd("vsplit " .. vim.fn.fnameescape(selection.filename))
-										vim.api.nvim_win_set_cursor(0, { selection.lnum, selection.col - 1 })
-									end
-								end)
-								map("n", "<CR>", function(prompt_bufnr)
-									local selection = action_state.get_selected_entry()
-									actions.close(prompt_bufnr)
-									if selection.filename then
-										vim.cmd("vsplit " .. vim.fn.fnameescape(selection.filename))
-										vim.api.nvim_win_set_cursor(0, { selection.lnum, selection.col - 1 })
+									if selection then
+										-- Create vertical split and get the new window id
+										vim.cmd("vsplit")
+										local new_win = vim.api.nvim_get_current_win()
+
+										-- If the definition is in a different file, open it in this split
+										if
+											selection.filename
+											and selection.filename ~= vim.api.nvim_buf_get_name(0)
+										then
+											vim.cmd("edit " .. vim.fn.fnameescape(selection.filename))
+										end
+
+										-- Set cursor position in the new window's buffer
+										vim.api.nvim_win_set_cursor(new_win, { selection.lnum, selection.col - 1 })
 									end
 								end)
 								return true
 							end,
 						})
-					end, "[G]oto [v]ertical split definition")
+					end, "[G]oto [v]split definition")
 
 					-- WARN: This is not Goto Definition, this is Goto Declaration.
 					--  For example, in C this would take you to the header.
