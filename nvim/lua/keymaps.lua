@@ -43,6 +43,10 @@ vim.keymap.set("n", "<C-A-k>", ":move .-2<CR>==")
 vim.keymap.set("v", "<C-A-j>", ":move '>+1<CR>gv=gv")
 vim.keymap.set("v", "<C-A-k>", ":move '<-2<CR>gv=gv")
 
+-- Indent selected lines with Tab and Shift-Tab in visual mode
+vim.keymap.set("v", "<Tab>", ">gv")
+vim.keymap.set("v", "<S-Tab>", "<gv")
+
 -- [[ Basic Autocommands ]]
 
 -- Highlight when yanking (copying) text

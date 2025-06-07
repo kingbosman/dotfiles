@@ -131,7 +131,7 @@ return {
 				builtin.find_files({
 					no_ignore = true,
 					no_ignore_parent = true,
-					file_ignore_patterns = { "%.git/", "%.idea/", "%vendor/", "%node_modules/" },
+					file_ignore_patterns = { "%.git/", "%.idea/", "%vendor/", "%node_modules/", "%venv/" },
 					hidden = true,
 				})
 			end, { desc = "[S]earch all files" })
