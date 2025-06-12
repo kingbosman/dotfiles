@@ -69,3 +69,8 @@ gcp() {
         return 1
     fi
 }
+
+# Docker
+# dockerboot is running twice because I had issues that some services were skipped in the first command
+# running it twice fixes the issue
+alias dockerboot='docker restart $(docker ps -a -q) && docker restart $(docker ps -a -q)'
