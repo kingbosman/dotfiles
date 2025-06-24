@@ -16,6 +16,7 @@ alias cdp='cd ~/projects'
 alias ..="cd .."
 
 # GIT
+alias lg='lazygit'
 alias gs="git status"
 alias gp="git pull"
 alias gb="git branch"
@@ -74,3 +75,4 @@ gcp() {
 # dockerboot is running twice because I had issues that some services were skipped in the first command
 # running it twice fixes the issue
 alias dockerboot='docker restart $(docker ps -a -q) && docker restart $(docker ps -a -q)'
+
