@@ -311,9 +311,9 @@ return {
 						},
 					},
 				},
-				volar = {
-					filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-				},
+				-- volar = {
+				-- 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+				-- },
 				jsonls = {
 					settings = {
 						json = {
@@ -340,7 +340,7 @@ return {
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
 				"tailwindcss", --tailwind css
-				"volar", -- vue, js, ts
+				-- "volar", -- vue, js, ts
 				"php-cs-fixer", -- php formatter
 				"intelephense", --php
 				"jsonls", -- JSON
