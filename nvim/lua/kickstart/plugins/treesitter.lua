@@ -4,7 +4,7 @@ return {
 		build = ":TSUpdate",
 		main = "nvim-treesitter.configs",
 		opts = {
-			ensure_installed = "all",
+			ensure_installed = { "go", "php", "sql", "python", "javascript", "html", "css" },
 			auto_install = true,
 			highlight = {
 				enable = true,
