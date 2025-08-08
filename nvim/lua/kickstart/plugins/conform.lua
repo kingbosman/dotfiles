@@ -34,11 +34,23 @@ return {
 				php = { "php_cs_fixer" },
 				python = { "black" },
 				go = { "goimports" },
+				sql = { "sqlfluff", "sql_formatter" },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
 				-- You can use 'stop_after_first' to run the first available formatter from the list
 				-- javascript = { "prettierd", "prettier", stop_after_first = true },
+			},
+			formatters = {
+				sqlfluff = {
+					args = {
+						"format",
+						"--stdin-filename",
+						vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)),
+						"-",
+					},
+					stdin = true,
+				},
 			},
 		},
 	},

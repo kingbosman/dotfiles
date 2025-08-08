@@ -352,6 +352,8 @@ return {
 				"black", --Python formatter
 				"flake8", -- Python linter
 				"mypy", -- Python type checker
+				"sqlfluff", -- sql customizeable formatter and linter
+				"sql-formatter", -- basic sql formatter in JS
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
