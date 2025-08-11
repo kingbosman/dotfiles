@@ -1,60 +1,74 @@
 return {
+	{
+		"mfussenegger/nvim-lint",
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			local lint = require("lint")
 
-  { -- Linting
-    'mfussenegger/nvim-lint',
-    event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      local lint = require 'lint'
-      lint.linters_by_ft = {
-        markdown = { 'markdownlint' },
-      }
+			lint.linters.sqlfluff = {
+				cmd = "sqlfluff",
+				stdin = false,
+				args = {
+					"lint",
+					"--dialect",
+					"mysql", -- or change to postgres, ansi, etc.
+					"--format",
+					"json",
+					function()
+						return vim.api.nvim_buf_get_name(0)
+					end,
+				},
+				parser = function(output, _)
+					local diagnostics = {}
+					local ok, decoded = pcall(vim.json.decode, output)
+					if not ok or type(decoded) ~= "table" then
+						return diagnostics
+					end
 
-      -- To allow other plugins to add linters to require('lint').linters_by_ft,
-      -- instead set linters_by_ft like this:
-      -- lint.linters_by_ft = lint.linters_by_ft or {}
-      -- lint.linters_by_ft['markdown'] = { 'markdownlint' }
-      --
-      -- However, note that this will enable a set of default linters,
-      -- which will cause errors unless these tools are available:
-      -- {
-      --   clojure = { "clj-kondo" },
-      --   dockerfile = { "hadolint" },
-      --   inko = { "inko" },
-      --   janet = { "janet" },
-      --   json = { "jsonlint" },
-      --   markdown = { "vale" },
-      --   rst = { "vale" },
-      --   ruby = { "ruby" },
-      --   terraform = { "tflint" },
-      --   text = { "vale" }
-      -- }
-      --
-      -- You can disable the default linters by setting their filetypes to nil:
-      -- lint.linters_by_ft['clojure'] = nil
-      -- lint.linters_by_ft['dockerfile'] = nil
-      -- lint.linters_by_ft['inko'] = nil
-      -- lint.linters_by_ft['janet'] = nil
-      -- lint.linters_by_ft['json'] = nil
-      -- lint.linters_by_ft['markdown'] = nil
-      -- lint.linters_by_ft['rst'] = nil
-      -- lint.linters_by_ft['ruby'] = nil
-      -- lint.linters_by_ft['terraform'] = nil
-      -- lint.linters_by_ft['text'] = nil
+					for _, file in ipairs(decoded) do
+						for _, violation in ipairs(file.violations or {}) do
+							local lnum = tonumber(violation.start_line_no) or 1
+							local col = tonumber(violation.start_line_pos) or 1
+							local end_lnum = tonumber(violation.end_line_no) or lnum
+							local end_col = tonumber(violation.end_line_pos) or col
 
-      -- Create autocommand which carries out the actual linting
-      -- on the specified events.
-      local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
-      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
-        group = lint_augroup,
-        callback = function()
-          -- Only run the linter in buffers that you can modify in order to
-          -- avoid superfluous noise, notably within the handy LSP pop-ups that
-          -- describe the hovered symbol using Markdown.
-          if vim.opt_local.modifiable:get() then
-            lint.try_lint()
-          end
-        end,
-      })
-    end,
-  },
+							table.insert(diagnostics, {
+								lnum = lnum - 1, -- Neovim is 0-based
+								col = col - 1,
+								end_lnum = end_lnum - 1,
+								end_col = end_col,
+								severity = vim.diagnostic.severity.WARN,
+								source = "sqlfluff",
+								message = string.format(
+									"[%s] %s",
+									violation.code or "SQL",
+									violation.description or ""
+								),
+							})
+						end
+					end
+
+					return diagnostics
+				end,
+			}
+
+			lint.linters_by_ft = {
+				sql = { "sqlfluff" },
+			}
+
+			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+			vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "BufEnter" }, {
+				group = lint_augroup,
+				callback = function()
+					if vim.opt_local.modifiable:get() then
+						lint.try_lint()
+					end
+				end,
+			})
+
+			vim.api.nvim_create_user_command("LspLint", function()
+				lint.try_lint()
+			end, { desc = "Trigger Lint" })
+		end,
+	},
 }
