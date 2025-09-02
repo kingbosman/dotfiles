@@ -34,7 +34,8 @@ return {
 				php = { "php_cs_fixer" },
 				python = { "black" },
 				go = { "goimports" },
-				sql = { "sqlfluff", "sql_formatter" },
+				sql = { "sqlfluff" },
+				-- sql = { "sqlfluff", "sql_formatter" },
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
