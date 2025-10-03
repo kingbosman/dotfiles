@@ -38,10 +38,10 @@ require("lazy").setup({
 	require("custom.plugins.dashboard"),
 
 	-- indent lines
-	require("nvim.lua.custom.plugins.indentmini"),
+	require("custom.plugins.indentmini"),
 
 	-- Sticky lines
-	require("nvim.lua.custom.plugins.treesitter-context"),
+	require("custom.plugins.treesitter-context"),
 
 	-- { import = "custom.plugins" },
 }, {
