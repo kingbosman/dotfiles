@@ -40,6 +40,9 @@ require("lazy").setup({
 	-- indent lines
 	require("nvim.lua.custom.plugins.indentmini"),
 
+	-- Sticky lines
+	require("nvim.lua.custom.plugins.treesitter-context"),
+
 	-- { import = "custom.plugins" },
 }, {
 	ui = {

@@ -1,4 +1,3 @@
--- lazy.nvim configuration
 return {
 	"nvimdev/indentmini.nvim",
 	config = function()
