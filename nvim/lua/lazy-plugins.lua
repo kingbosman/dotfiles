@@ -37,6 +37,9 @@ require("lazy").setup({
 	--dashboard
 	require("custom.plugins.dashboard"),
 
+	-- indent lines
+	require("nvim.lua.custom.plugins.indentmini"),
+
 	-- { import = "custom.plugins" },
 }, {
 	ui = {
