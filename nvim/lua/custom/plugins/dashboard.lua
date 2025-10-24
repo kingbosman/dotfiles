@@ -2,8 +2,8 @@ return {
 	"nvimdev/dashboard-nvim",
 	event = "VimEnter",
 	config = function()
-		-- Set up custom highlight group for orange color
-		vim.api.nvim_set_hl(0, "DashboardOrange", { fg = "#ff8800" })
+		-- Set up custom highlight group for orange color (match dashboard theme)
+		vim.api.nvim_set_hl(0, "DashboardOrange", { fg = "#ff9e64" })
 
 		-- Tough guy quotes
 		local quotes = {
@@ -25,12 +25,33 @@ return {
 		math.randomseed(os.time())
 		local quote = quotes[math.random(#quotes)]
 
-		-- Truncate text to fit width
-		local function truncate(text, max_width)
-			if #text <= max_width then
-				return text
+		-- Wrap text to fit width (split into multiple lines instead of truncating)
+		local function wrap_text(text, max_width)
+			if vim.fn.strdisplaywidth(text) <= max_width then
+				return { text }
 			end
-			return text:sub(1, max_width - 3) .. "..."
+
+			local lines = {}
+			local words = vim.split(text, " ")
+			local current_line = ""
+
+			for _, word in ipairs(words) do
+				local test_line = current_line == "" and word or current_line .. " " .. word
+				if vim.fn.strdisplaywidth(test_line) <= max_width then
+					current_line = test_line
+				else
+					if current_line ~= "" then
+						table.insert(lines, current_line)
+					end
+					current_line = word
+				end
+			end
+
+			if current_line ~= "" then
+				table.insert(lines, current_line)
+			end
+
+			return lines
 		end
 
 		-- Get stats
@@ -94,7 +115,6 @@ return {
 				table.insert(header_art, string.rep(" ", ascii_padding_left) .. line)
 			end
 
-			table.insert(header_art, "        " .. string.rep("─", footer_line_width))
 			table.insert(header_art, "")
 
 			-- Build header (title box at top)
@@ -126,9 +146,10 @@ return {
 			end
 
 			-- Calculate vertical spacing to center stats
+			-- Note: We estimate footer height here, actual height may vary with wrapped quotes
 			local header_art_height = #header_art
 			local stats_height = #stats
-			local footer_height = 5 -- quote + author + 2 spacing + separator
+			local footer_height = 6 -- estimated: 2 spacing + quote lines + author lines (may wrap)
 			local content_height = header_art_height + stats_height + footer_height
 			local available_space = height - content_height
 			local stats_top_margin = math.max(2, math.floor(available_space / 2))
@@ -159,31 +180,37 @@ return {
 			-- Empty center (no shortcuts)
 			local center = {}
 
-			-- Quote section (no box) - match footer line width
+			-- Quote section (no box) - match footer line width, wrap long quotes
 			local quote_max_width = footer_line_width
 
-			-- Prepare quote text with truncation
-			local quote_text = '"' .. truncate(quote[1], quote_max_width) .. '"'
-			local author_text = "- " .. truncate(quote[2], quote_max_width) -- Use simple dash
+			-- Wrap quote text across multiple lines if needed
+			local quote_text = '"' .. quote[1] .. '"'
+			local quote_lines = wrap_text(quote_text, quote_max_width)
 
-			-- Center each line within the width
-			local quote_display_width = vim.fn.strdisplaywidth(quote_text)
-			local author_display_width = vim.fn.strdisplaywidth(author_text)
-
-			local quote_padding = math.floor((quote_max_width - quote_display_width) / 2)
-			local author_padding = math.floor((quote_max_width - author_display_width) / 2)
-
-			local quote_line = "        " .. string.rep(" ", quote_padding) .. quote_text
-			local author_line = "        " .. string.rep(" ", author_padding) .. author_text
+			-- Wrap author text
+			local author_text = "- " .. quote[2]
+			local author_lines = wrap_text(author_text, quote_max_width)
 
 			-- Footer content (quote at the bottom)
 			local footer_content = {
 				"",
-				quote_line,
-				author_line,
-				"",
-				"        " .. string.rep("─", footer_line_width),
 			}
+
+			-- Add all quote lines, centered
+			for _, line in ipairs(quote_lines) do
+				local line_width = vim.fn.strdisplaywidth(line)
+				local padding = math.floor((quote_max_width - line_width) / 2)
+				table.insert(footer_content, "        " .. string.rep(" ", padding) .. line)
+			end
+
+			-- Add all author lines, centered
+			for _, line in ipairs(author_lines) do
+				local line_width = vim.fn.strdisplaywidth(line)
+				local padding = math.floor((quote_max_width - line_width) / 2)
+				table.insert(footer_content, "        " .. string.rep(" ", padding) .. line)
+			end
+
+			table.insert(footer_content, "")
 
 			-- Calculate remaining space to push footer to bottom
 			local content_height = #header + #footer_content
@@ -216,13 +243,12 @@ return {
 			},
 		})
 
-		-- Apply orange color to title and footer
+		-- Apply orange color to ASCII art
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = "dashboard",
 			callback = function()
-				-- Match ASCII art blocks and separator lines
+				-- Match ASCII art blocks
 				vim.fn.matchadd("DashboardOrange", "██")
-				vim.fn.matchadd("DashboardOrange", "^\\s*─\\+$")
 			end,
 		})
 	end,
