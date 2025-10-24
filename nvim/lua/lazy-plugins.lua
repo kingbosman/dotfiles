@@ -43,6 +43,9 @@ require("lazy").setup({
 	-- Sticky lines
 	require("custom.plugins.treesitter-context"),
 
+	-- Refactoring
+	require("custom.plugins.refactoring"),
+
 	-- { import = "custom.plugins" },
 }, {
 	ui = {
