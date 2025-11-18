@@ -26,3 +26,10 @@ alias lg='lazygit'
 alias dockerboot='docker restart $(docker ps -a -q) && docker restart $(docker ps -a -q)'
 
 alias sqlflufflint='~/.local/share/nvim/mason/bin/sqlfluff lint'
+
+## SQL connections (DEV ONLY) ##
+# Work
+alias felixdb='usql mysql://root:root@127.0.0.1:13306/felixworks'
+alias einsteindb='usql mysql://root:root@127.0.0.1:23306/mreinstein'
+alias authserverdb='usql mysql://root:root@127.0.0.1:33306/authserver'
+alias planworksdb='usql mysql://root:root@127.0.0.1:43306/planworks'
