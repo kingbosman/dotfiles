@@ -6,3 +6,6 @@ export PATH=$(go env GOPATH)/bin:$PATH
 if [ -f ~/.config/bash/.bash_aliases ]; then
     . ~/.config/bash/.bash_aliases
 fi
+
+bindkey '\e[A' history-beginning-search-backward
+bindkey '\e[B' history-beginning-search-forward

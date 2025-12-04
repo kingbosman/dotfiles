@@ -118,3 +118,6 @@ export PATH=$PATH:/$HOME/go/bin
 # add ssh key
 eval $(keychain --quiet --eval ~/.ssh/id_ed25519)
 
+# arrow up down with typed prefix
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
