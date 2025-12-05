@@ -58,3 +58,5 @@ vim.opt.spell = true
 
 vim.opt.backup = true
 vim.opt.backupdir:remove(".")
+
+vim.opt.colorcolumn = "80,120"

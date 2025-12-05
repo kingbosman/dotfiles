@@ -43,6 +43,9 @@ require("lazy").setup({
 	-- Sticky lines
 	require("custom.plugins.treesitter-context"),
 
+	-- Column
+	-- require("custom.plugins.neo-column"),
+
 	-- Refactoring
 	require("custom.plugins.refactoring"),
 

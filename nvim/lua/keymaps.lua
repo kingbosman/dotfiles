@@ -34,6 +34,7 @@ vim.keymap.set("n", "<C-a>", "ggVG")
 -- easy insert end of line character in insert mode
 vim.keymap.set("i", ";;", "<Esc>A;")
 vim.keymap.set("i", ",,", "<Esc>A,")
+vim.keymap.set("i", "{{", "<Esc>A{")
 
 --open current file is designed program
 vim.keymap.set("n", "<Leader>x", ":!xdg-open %<CR><CR>")
@@ -69,3 +70,8 @@ vim.keymap.set({ "n", "x" }, "<leader>ri", ":Refactor inline_var<CR>")
 vim.keymap.set("n", "<leader>rI", ":Refactor inline_func<CR>")
 vim.keymap.set("n", "<leader>rb", ":Refactor extract_block")
 vim.keymap.set("n", "<leader>rbf", ":Refactor extract_block_to_file")
+
+-- frequent used commands to keys with ;
+vim.keymap.set("n", ";;", ":wa<CR>", { desc = "save all" })
+vim.keymap.set("n", ";q", ":q<CR>", { desc = "Quit" })
+vim.keymap.set("n", ";v", ":vs<CR>", { desc = "Split" })
