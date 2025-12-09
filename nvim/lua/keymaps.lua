@@ -34,7 +34,6 @@ vim.keymap.set("n", "<C-a>", "ggVG")
 -- easy insert end of line character in insert mode
 vim.keymap.set("i", ";;", "<Esc>A;")
 vim.keymap.set("i", ",,", "<Esc>A,")
-vim.keymap.set("i", "{{", "<Esc>A{")
 
 --open current file is designed program
 vim.keymap.set("n", "<Leader>x", ":!xdg-open %<CR><CR>")
