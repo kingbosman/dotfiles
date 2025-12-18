@@ -33,4 +33,9 @@ rm -rf "$HOME/.zshrc"
 ln -s "$DOTFILES/.generated-install/bash" "$HOME/.config/bash"
 ln -s "$DOTFILES/.generated-install/bash/.zshrc" "$HOME/.zshrc"
 
+echo 'linking scripts'
+cp -r $DOTFILES/scripts $DOTFILES/.generated-install/scripts 
+rm -rf $HOME/.config/scripts
+ln -s $DOTFILES/.generated-install/scripts $HOME/.config/scripts
+
 echo 'Done linking all files!'

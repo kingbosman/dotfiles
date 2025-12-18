@@ -25,6 +25,9 @@ alias lg='lazygit'
 # running it twice fixes the issue
 alias dockerboot='docker restart $(docker ps -a -q) && docker restart $(docker ps -a -q)'
 
+# Start multiple tmux sessions for work
+alias startdev='bash $HOME/.config/scripts/work_tmux.sh'
+
 alias sqlflufflint='~/.local/share/nvim/mason/bin/sqlfluff lint'
 
 ## SQL connections (DEV ONLY) ##
