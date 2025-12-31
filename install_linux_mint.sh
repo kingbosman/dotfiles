@@ -30,9 +30,4 @@ rm -rf $HOME/.bashrc
 ln -s $DOTFILES/.generated-install/bash $HOME/.config/bash
 ln -s $DOTFILES/.generated-install/bash/.bashrc $HOME/.bashrc
 
-echo 'linking scripts'
-cp -r $DOTFILES/scripts $DOTFILES/.generated-install/scripts 
-rm -rf $HOME/.config/scripts
-ln -s $DOTFILES/.generated-install/scripts $HOME/.config/scripts
-
 echo 'Done linking all files!'
