@@ -28,6 +28,6 @@ cp -r $DOTFILES/bash $DOTFILES/.generated-install/bash
 rm -rf $HOME/.config/bash
 rm -rf $HOME/.bashrc
 ln -s $DOTFILES/.generated-install/bash $HOME/.config/bash
-ln -s $DOTFILES/.generated-install/bash/.bashrc $HOME/.bashrc
+ln -s $DOTFILES/.generated-install/bash/.bashrc_mint $HOME/.bashrc
 
 echo 'Done linking all files!'
