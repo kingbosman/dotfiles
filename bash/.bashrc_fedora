@@ -15,21 +15,16 @@ export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 export PATH="$PATH:/usr/bin/go/bin"
 export PATH="$PATH:$HOME/go/bin"
 
-# 4. SSH Key management
-if command -v keychain >/dev/null 2>&1; then
-    eval $(keychain --quiet --eval ~/.ssh/id_ed25519)
-fi
-
-# 5. Your History Search Shortcuts
+# 4. Your History Search Shortcuts
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 
-# 6. Load your custom aliases
+# 5. Load your custom aliases
 if [ -f ~/.config/bash/.bash_aliases ]; then
     . ~/.config/bash/.bash_aliases
 fi
 
-# 7. Fedora modularity (Loads any scripts in ~/.bashrc.d/)
+# 6. Fedora modularity (Loads any scripts in ~/.bashrc.d/)
 if [ -d ~/.bashrc.d ]; then
     for rc in ~/.bashrc.d/*; do
         [ -f "$rc" ] && . "$rc"
