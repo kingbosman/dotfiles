@@ -9,9 +9,25 @@ vim.opt.mouse = "a"
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
--- Sync clipboard between OS and Neovim.
+-- Sync Clipboard between OS and neovim
 vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
+	if os.getenv("WAYLAND_DISPLAY") then
+		vim.g.clipboard = {
+			name = "wayland",
+			copy = {
+				["+"] = { "wl-copy", "--type", "text/plain" },
+				["*"] = { "wl-copy", "--type", "text/plain", "--primary" },
+			},
+			paste = {
+				["+"] = { "wl-paste", "--no-newline" },
+				["*"] = { "wl-paste", "--no-newline", "--primary" },
+			},
+			cache_enabled = 0,
+		}
+		vim.opt.clipboard = "unnamedplus"
+	else
+		vim.opt.clipboard = "unnamedplus"
+	end
 end)
 
 -- Enable break indent
