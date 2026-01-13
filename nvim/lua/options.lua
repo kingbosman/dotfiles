@@ -28,6 +28,12 @@ vim.schedule(function()
 	else
 		vim.opt.clipboard = "unnamedplus"
 	end
+
+	-- Prevent deletions from going to clipboard
+	vim.keymap.set({ "n", "x" }, "x", '"_x', { noremap = true })
+	vim.keymap.set({ "n", "x" }, "X", '"_X', { noremap = true })
+	vim.keymap.set({ "n", "x" }, "d", '"_d', { noremap = true })
+	vim.keymap.set({ "n", "x" }, "D", '"_D', { noremap = true })
 end)
 
 -- Enable break indent
