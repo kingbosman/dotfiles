@@ -4,11 +4,19 @@ alias myip="ip -f inet address | grep inet | grep -v 'lo$' | cut -d ' ' -f 6,13 
 alias e="xdg-open"
 
 ## Code ##
-alias v="nvim"
 alias vim="nvim"
 alias sail='./vendor/bin/sail'
 alias sa='./vendor/bin/sail artisan'
 alias a='php artisan'
+
+# Launch nvim in .venv if exists
+v() {
+    if [ -d ".venv" ]; then
+       command . .venv/bin/activate && nvim "$@"
+    else
+        command nvim "$@"
+    fi
+}
 
 # easy cd
 alias cdd='cd ~/Downloads'
