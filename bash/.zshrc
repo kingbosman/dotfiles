@@ -1,6 +1,7 @@
 export NVM_DIR=~/.nvm
 export EDITOR="nvim"
 source $(brew --prefix nvm)/nvm.sh
+eval "$(zoxide init zsh)"
 
 PATH="$HOME/.composer/vendor/bin:$PATH"
 export PATH=$(go env GOPATH)/bin:$PATH
