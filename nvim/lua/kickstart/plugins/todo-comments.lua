@@ -16,6 +16,7 @@ return {
 					"--glob=!node_modules",
 					"--glob=!dist",
 					"--glob=!public",
+					"--glob=!resources",
 					"--glob=!build",
 					"--glob=!*.min.js",
 				},
