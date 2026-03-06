@@ -49,6 +49,9 @@ require("lazy").setup({
 	-- Refactoring
 	require("custom.plugins.refactoring"),
 
+	-- GitHub integration
+	require("custom.plugins.octo"),
+
 	-- { import = "custom.plugins" },
 }, {
 	ui = {
