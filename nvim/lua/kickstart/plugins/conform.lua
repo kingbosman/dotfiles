@@ -31,7 +31,7 @@ return {
 			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
-				php = { "php_cs_fixer" },
+				php = { "pint", "php_cs_fixer", stop_after_first = true },
 				python = { "black" },
 				go = { "goimports" },
 				sql = { "sqlfluff" },
