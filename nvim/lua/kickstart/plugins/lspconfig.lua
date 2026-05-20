@@ -371,6 +371,18 @@ return {
 					end,
 				},
 			})
+
+			vim.lsp.config("intelephense", {
+				root_markers = { "composer.json", ".git" },
+				settings = {
+					intelephense = {
+						files = {
+							maxSize = 10000000,
+						},
+					},
+				},
+			})
+
 		end,
 	},
 }
