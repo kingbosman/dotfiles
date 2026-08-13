@@ -43,6 +43,14 @@ return {
 				-- javascript = { "prettierd", "prettier", stop_after_first = true },
 			},
 			formatters = {
+				pint = {
+					command = function()
+						if vim.fn.filereadable("vendor/bin/pint") == 1 then
+							return "vendor/bin/pint"
+						end
+						return "pint"
+					end,
+				},
 				sqlfluff = {
 					args = {
 						"format",

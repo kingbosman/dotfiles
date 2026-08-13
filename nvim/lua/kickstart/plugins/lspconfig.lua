@@ -342,6 +342,7 @@ return {
 				"tailwindcss", --tailwind css
 				-- "volar", -- vue, js, ts
 				"php-cs-fixer", -- php formatter
+				"pint", -- laravel php formatter
 				"intelephense", --php
 				"jsonls", -- JSON
 				"gopls", -- GO lsp
