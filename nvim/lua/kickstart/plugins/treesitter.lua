@@ -16,8 +16,12 @@ local ensure_installed = {
 	"sql",
 	"python",
 	"javascript",
+	"typescript",
 	"html",
 	"css",
+	"rust",
+	"lua",
+	"bash",
 	-- markdown floats (LSP hover via `K`) render through treesitter
 	"markdown",
 	"markdown_inline",
