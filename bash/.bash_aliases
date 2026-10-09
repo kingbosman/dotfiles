@@ -35,3 +35,6 @@ y() {
     [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
     rm -f -- "$tmp"
 }
+
+#Home server (protected by ssh keys)
+alias homeserver="ssh -t pan@192.168.8.174 'tmux new -A -s main'"
